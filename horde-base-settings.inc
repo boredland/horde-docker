@@ -1,0 +1,8 @@
+$conf['sql']['username'] = 'horde';
+$conf['sql']['password'] = 'horde';
+$conf['sql']['hostspec'] =  '';
+$conf['sql']['port'] = '';
+$conf['sql']['protocol'] = 'tcp';
+$conf['sql']['database'] = 'horde';
+$conf['sql']['charset'] = 'utf-8';
+$conf['sql']['ssl'] = false;
