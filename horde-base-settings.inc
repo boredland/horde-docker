@@ -6,3 +6,4 @@ $conf['sql']['protocol'] = 'tcp';
 $conf['sql']['database'] = 'horde';
 $conf['sql']['charset'] = 'utf-8';
 $conf['sql']['ssl'] = false;
+$conf['sql']['phptype'] = 'mysqli';
