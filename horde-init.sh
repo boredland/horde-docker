@@ -4,6 +4,7 @@ if [[ ! -f "/etc/horde/horde/conf.php" ]]; then
     cp -rp /etc/.horde/* /etc/horde/
     cp /etc/horde/horde/conf.php.dist /etc/horde/horde/conf.php
     cat /etc/horde-base-settings.inc >> /etc/horde/horde/conf.php
+    chown -R www-data:www-data /etc/horde
 fi
 
 if [[ $MYSQL_PORT_3306_TCP_ADDR ]]; then
@@ -26,7 +27,29 @@ else
 	sed -i "s/^\(.*sql.*phptype.*=\)\(.*\);/\1 '$DB_DRIVER';/g" /etc/horde/horde/conf.php
 fi
 
-#TODO check if db exists and if not do a migration
+if [[ $MYSQL_PORT_3306_TCP_ADDR ]]; then
+
+        RESULT=`mysql -u root  --password=$MYSQL_ENV_MYSQL_ROOT_PASSWORD --port=$MYSQL_PORT_3306_TCP_PORT --host=$MYSQL_PORT_3306_TCP_ADDR --protocol=TCP --skip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'"`
+	if [ "$RESULT" == "$DB_NAME" ]; then
+    	echo "Database exist"
+	else
+		echo "Database does not exist"
+    	mysql -u root  --password=$MYSQL_ENV_MYSQL_ROOT_PASSWORD --port=$MYSQL_PORT_3306_TCP_PORT --host=$MYSQL_PORT_3306_TCP_ADDR --protocol=TCP -e "CREATE DATABASE $DB_NAME"
+    	horde-db-migrate
+    	echo "Database created"
+	fi
+else
+
+	RESULT=`mysql -u $DB_USER  --password=$DB_PASS --port=$DB_PORT --host=$DB_HOST --protocol=TCP --skip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'"`
+	if [ "$RESULT" == "$DB_NAME" ]; then
+    	echo "Database exist"
+	else
+    	echo "Database does not exist"
+    	mysql -u $DB_USER  --password=$DB_PASS --port=$DB_PORT --host=$DB_HOST --protocol=TCP --skip-column-names -e "CREATE DATABASE $DB_NAME"
+    	horde-db-migrate
+    	echo "Database created"
+	fi
+fi
 
 sed -i "s/^\(.*use_ssl.*=\)\(.*\);/\1 0;/g" /etc/horde/horde/conf.php
 sed -i "s/^\(.*testdisable.*=\)\(.*\);/\1 $HORDE_TEST_DISABLE;/g" /etc/horde/horde/conf.php
