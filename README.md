@@ -14,32 +14,27 @@ docker run --name ts_horde -d \
 -e DB_PASS=[dbpassword] \
 boredland/horde-docker
 ```
-### With direct port share:
-```docker run -d --link mysql:mysql -v /path/to/horde/storage:/etc/horde -p 80:80 boredland/horde-docker```
 
-### With jwilder/nginx-proxy as example for local testing
-```
-docker run -d \
---link mysql:mysql \
--v /path/to/horde/storage:/etc/horde \
--e VIRTUAL_HOST=~^horde\..*\.xip\.io \
--e HORDE_TEST_DISABLE=false \
-boredland/horde-docker
 ```
 Set HTTP_X_FORWARDED_FOR to the Romote address of the server
 Set HTTP_X_FORWARDED_PROTO for HTTPS
 ```
+
 ### DB default values or link a mysql
 ```
 DB default values or link a mysql
-DB_HOST localhost
-DB_PORT 3306
-DB_NAME horde
-DB_USER horde
-DB_PASS horde
-DB_DRIVER mysqli
+ENV DB_HOST localhost
+ENV DB_PORT 3306
+ENV DB_NAME horde
+ENV DB_USER horde
+ENV DB_PASS horde
+ENV DB_PROTOCOL SOCKET
+ENV DB_DRIVER mysqli
+ENV HORDE_TEST_DISABLE false
 ```
-### Enable test.php of horde by setting this to false
+You can overwrite them using the `-e [PARAMETER_NAME]=[VALUE]`-Flag
+
+### Disable test.php of horde by setting this to true
 ```HORDE_TEST_DISABLE true```
 
-Openssl and GNU PGP both unter ```/usr/bin/``` 
+Openssl and GNU PGP both under ```/usr/bin/``` 
