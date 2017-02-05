@@ -1,6 +1,6 @@
 FROM phusion/baseimage:latest
 
-MAINTAINER Thomas Ziegler <zieglert@gmx.ch>
+MAINTAINER Jonas Strassel <jo.strassel@gmail.com>
 
 ENV HOME /root
 
@@ -16,7 +16,7 @@ ENV HORDE_TEST_DISABLE false
 RUN apt-get update
 RUN apt-get install -y apache2 mysql-client gnupg2 openssl php-pear \
 	php-horde php-horde-imp php-horde-groupware php-horde-ingo php-horde-lz4 \
-	php5-imagick php5-dev php5-memcache php5-memcached php-net-sieve && \
+	php-imagick php-dev php-memcache php-memcached php-net-sieve && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN pear upgrade PEAR && \
@@ -24,9 +24,11 @@ RUN pear upgrade PEAR && \
 	pecl install lzf && \
 	rm -rf /tmp/* /var/tmp/*
 
-RUN echo extension=lzf.so > /etc/php5/mods-available/lzf.ini && php5enmod lzf
-RUN echo extension=horde_lz4.so > /etc/php5/mods-available/horde_lzf.ini && php5enmod horde_lzf
-RUN pear channel-update pear.horde.org && pear upgrade-all
+RUN echo extension=lzf.so > /etc/php/7.0/mods-available/lzf.ini && phpenmod lzf
+RUN echo extension=horde_lz4.so > /etc/php/7.0/mods-available/horde_lzf.ini && phpenmod horde_lzf
+RUN pear channel-discover pear.horde.org
+RUN pear channel-update pear.horde.org
+RUN pear upgrade-all
 
 EXPOSE 80
 

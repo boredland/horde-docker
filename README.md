@@ -1,6 +1,8 @@
 Horde Groupware
 ==============
-
+Updated Fork of [zauberertz/horde](https://git.ziegler.bz/docker/horde) to work with Ubuntu 16.04 and php7.
+### With local Database via Socket-Share
+```sddfd```
 ###With direct port share:
 ```docker run -d --link mysql:mysql -v /path/to/horde/storage:/etc/horde -p 80:80 zauberertz/horde```
 
