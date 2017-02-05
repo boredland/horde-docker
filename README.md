@@ -7,11 +7,11 @@ Updated Fork of [zauberertz/horde](https://git.ziegler.bz/docker/horde) to work 
 docker run --name ts_horde -d \
 -v /path/to/horde/storage:/etc/horde \
 -v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock \
--p 5555:80 \
--e HORDE_TEST_DISABLE true 
+-p [YOURPORT]:80 \
+-e HORDE_TEST_DISABLE=true 
 -e HTTP_X_FORWARDED_FOR=webmail.domain.tld \
 -e HTTP_X_FORWARDED_PROTO=webmail.domain.tld \
--e DB_PASS [dbpassword] \
+-e DB_PASS=[dbpassword] \
 boredland/horde-docker
 ```
 ### With direct port share:
