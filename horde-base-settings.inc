@@ -1,6 +1,6 @@
 $conf['sql']['username'] = 'horde';
 $conf['sql']['password'] = 'horde';
-$conf['sql']['hostspec'] =  'localhost';
+$conf['sql']['hostspec'] =  '';
 $conf['sql']['port'] = '';
 $conf['sql']['protocol'] = 'unix';
 $conf['sql']['database'] = 'horde';
