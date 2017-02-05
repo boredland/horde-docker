@@ -6,7 +6,7 @@ Updated Fork of [zauberertz/horde](https://git.ziegler.bz/docker/horde) to work 
 ```
 docker run --name ts_horde -d \
 -v /path/to/horde/storage:/etc/horde \
--v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock \
+-v [YOURSOCKET]:/var/run/mysqld/mysqld.sock \
 -p [YOURPORT]:80 \
 -e HORDE_TEST_DISABLE=true 
 -e HTTP_X_FORWARDED_FOR=webmail.domain.tld \

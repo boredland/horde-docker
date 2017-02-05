@@ -7,4 +7,4 @@ $conf['sql']['database'] = 'horde';
 $conf['sql']['charset'] = 'utf-8';
 $conf['sql']['ssl'] = false;
 $conf['sql']['phptype'] = 'mysqli';
-$conf['sql']['socket'] = '/var/run/mysqld/mysqld.sock ';
+$conf['sql']['socket'] = '/var/run/mysqld/mysqld.sock';

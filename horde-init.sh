@@ -27,6 +27,7 @@ else
 	sed -i "s/^\(.*sql.*database.*=\)\(.*\);/\1 '$DB_NAME';/g" /etc/horde/horde/conf.php
 	sed -i "s/^\(.*sql.*phptype.*=\)\(.*\);/\1 '$DB_DRIVER';/g" /etc/horde/horde/conf.php
 	sed -i "s/^\(.*sql.*protocol.*=\)\(.*\);/\1 '$DB_PROTOCOL';/g" /etc/horde/horde/conf.php
+	sed -i "s/^\(.*sql.*protocol.*=\)\(.*\);/\1 '$DB_PROTOCOL';/g" /etc/horde/horde/conf.php
 fi
 
 if [[ $MYSQL_PORT_3306_TCP_ADDR ]]; then
