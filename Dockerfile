@@ -14,7 +14,7 @@ ENV HORDE_TEST_DISABLE false
 
 
 RUN apt-get update
-RUN apt-get install -y apache2 mysql-client gnupg2 openssl php-pear \
+RUN apt-get install -y apache2 libapache2-mod-php mysql-client gnupg2 openssl php-pear \
 	php-horde php-horde-imp php-horde-groupware php-horde-ingo php-horde-lz4 \
 	php-imagick php-dev php-memcache php-memcached php-net-sieve && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
