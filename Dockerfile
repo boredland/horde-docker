@@ -9,9 +9,9 @@ ENV DB_PORT 3306
 ENV DB_NAME horde
 ENV DB_USER horde
 ENV DB_PASS horde
+ENV DB_PROTOCOL SOCKET
 ENV DB_DRIVER mysqli
 ENV HORDE_TEST_DISABLE false
-
 
 RUN apt-get update
 RUN apt-get install -y apache2 libapache2-mod-php mysql-client gnupg2 openssl php-pear \

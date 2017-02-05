@@ -25,27 +25,28 @@ else
 	sed -i "s/^\(.*sql.*password.*=\)\(.*\);/\1 '$DB_PASS';/g" /etc/horde/horde/conf.php
 	sed -i "s/^\(.*sql.*database.*=\)\(.*\);/\1 '$DB_NAME';/g" /etc/horde/horde/conf.php
 	sed -i "s/^\(.*sql.*phptype.*=\)\(.*\);/\1 '$DB_DRIVER';/g" /etc/horde/horde/conf.php
+	sed -i "s/^\(.*sql.*protocol.*=\)\(.*\);/\1 '$DB_PROTOCOL';/g" /etc/horde/horde/conf.php
 fi
 
 if [[ $MYSQL_PORT_3306_TCP_ADDR ]]; then
 
-        RESULT=`mysql -u root  --password=$MYSQL_ENV_MYSQL_ROOT_PASSWORD --port=$MYSQL_PORT_3306_TCP_PORT --host=$MYSQL_PORT_3306_TCP_ADDR --protocol=TCP --skip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'"`
+        RESULT=`mysql -u root  --password=$MYSQL_ENV_MYSQL_ROOT_PASSWORD --port=$MYSQL_PORT_3306_TCP_PORT --host=$MYSQL_PORT_3306_TCP_ADDR --protocol=$DB_PROTOCOL --skip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'"`
 	if [ "$RESULT" == "$DB_NAME" ]; then
     	echo "Database exist"
 	else
 		echo "Database does not exist"
-    	mysql -u root  --password=$MYSQL_ENV_MYSQL_ROOT_PASSWORD --port=$MYSQL_PORT_3306_TCP_PORT --host=$MYSQL_PORT_3306_TCP_ADDR --protocol=TCP -e "CREATE DATABASE $DB_NAME"
+    	mysql -u root  --password=$MYSQL_ENV_MYSQL_ROOT_PASSWORD --port=$MYSQL_PORT_3306_TCP_PORT --host=$MYSQL_PORT_3306_TCP_ADDR --protocol=$DB_PROTOCOL -e "CREATE DATABASE $DB_NAME"
     	horde-db-migrate
     	echo "Database created"
 	fi
 else
 
-	RESULT=`mysql -u $DB_USER  --password=$DB_PASS --port=$DB_PORT --host=$DB_HOST --protocol=TCP --skip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'"`
+	RESULT=`mysql -u $DB_USER  --password=$DB_PASS --port=$DB_PORT --host=$DB_HOST --protocol=$DB_PROTOCOL --skip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'"`
 	if [ "$RESULT" == "$DB_NAME" ]; then
     	echo "Database exist"
 	else
     	echo "Database does not exist"
-    	mysql -u $DB_USER  --password=$DB_PASS --port=$DB_PORT --host=$DB_HOST --protocol=TCP --skip-column-names -e "CREATE DATABASE $DB_NAME"
+    	mysql -u $DB_USER  --password=$DB_PASS --port=$DB_PORT --host=$DB_HOST --protocol=$DB_PROTOCOL --skip-column-names -e "CREATE DATABASE $DB_NAME"
     	horde-db-migrate
     	echo "Database created"
 	fi
