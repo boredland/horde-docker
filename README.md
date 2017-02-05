@@ -20,6 +20,7 @@ Set HTTP_X_FORWARDED_FOR to the Romote address of the server
 Set HTTP_X_FORWARDED_PROTO for HTTPS
 ```
 
+Enter `horde-db-migrate` into an interactive shell on first run. Could create a better horde-init.sh if I've some time to spare though..
 ### DB default values or link a mysql
 ```
 DB default values or link a mysql

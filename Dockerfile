@@ -4,8 +4,6 @@ MAINTAINER Jonas Strassel <jo.strassel@gmail.com>
 
 ENV HOME /root
 
-ENV DB_HOST localhost
-ENV DB_PORT 3306
 ENV DB_NAME horde
 ENV DB_USER horde
 ENV DB_PASS horde
